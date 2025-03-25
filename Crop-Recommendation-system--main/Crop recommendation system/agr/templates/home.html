@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroInsight</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" rel="stylesheet" />
+  <style>
+
+    #carouselDarkVariant img {
+      object-fit: cover;
+      height: 50vh;
+    }
+
+    .carousel-caption {
+      background-color: rgba(34, 197, 94, 0.85); /* Green with opacity */
+      color: white;
+      border-radius: 8px;
+      padding: 15px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: auto;
+      max-width: 90%;
+    }
+
+    /* Adjustments for Main Content */
+    .main-content {
+      padding-top: 1rem; /* Reduced top spacing */
+      padding-bottom: 1rem; /* Reduced bottom spacing */
+    }
+
+    .main-content h1 {
+      font-size: 3.5rem; /* Increased text size */
+    }
+
+    .main-content p {
+      font-size: 1.5rem; /* Increased paragraph text size */
+    }
+
+    .main-content img {
+      width: 150px; /* Increased image size */
+      height: 150px; /* Ensure consistent size */
+    }
+
+    body {
+      font-size: 18px; /* Increased base font size */
+    }
+  </style>
+</head>
+
+<!--  &lt;!&ndash; Navbar &ndash;&gt;-->
+<!--  <nav class="bg-green-800 p-4 shadow-md">-->
+<!--    <div class="container mx-auto flex justify-between items-center">-->
+<!--      <a href="#" class="text-white text-2xl font-bold">AgroInsight</a>-->
+<!--      <ul class="hidden md:flex space-x-4">-->
+<!--        <li><a href="home.html" class="text-white hover:text-yellow-300">Home</a></li>-->
+<!--        <li><a href="about.html" class="text-white hover:text-yellow-300">About</a></li>-->
+<!--        <li><a href="form.html" class="text-white hover:text-yellow-300">Get Recommendation</a></li>-->
+<!--        <li><a href="history.html" class="text-white hover:text-yellow-300">Recommendation History</a></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </nav>-->
+
+<!-- Navbar -->
+<nav class="bg-green-800 p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="{{ url_for('home') }}" class="text-white text-2xl font-bold">Agro-Insight</a>
+    <ul class="hidden md:flex space-x-4">
+      <li><a href="{{ url_for('home') }}" class="text-white hover:text-yellow-300">Home</a></li>
+      <li><a href="{{ url_for('about') }}" class="text-white hover:text-yellow-300">About</a></li>
+      <li><a href="{{ url_for('index') }}" class="text-white hover:text-yellow-300">Get Recommendation</a></li>
+      <li><a href="{{ url_for('history') }}" class="text-white hover:text-yellow-300">Recommendation History</a></li>
+    </ul>
+  </div>
+</nav>
+
+<body class="bg-gray-100">
+
+  <!-- Carousel Section -->
+  <section class="w-full">
+    <div id="carouselDarkVariant" class="relative" data-te-carousel-init data-te-carousel-slide>
+      <!-- Indicators -->
+      <div class="absolute inset-x-0 bottom-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0" data-te-carousel-indicators>
+        <button data-te-target="#carouselDarkVariant" data-te-slide-to="0" class="mx-[3px] h-[3px] w-[30px] bg-gray-800 opacity-75" data-te-carousel-active></button>
+        <button data-te-target="#carouselDarkVariant" data-te-slide-to="1" class="mx-[3px] h-[3px] w-[30px] bg-gray-800 opacity-75"></button>
+        <button data-te-target="#carouselDarkVariant" data-te-slide-to="2" class="mx-[3px] h-[3px] w-[30px] bg-gray-800 opacity-75"></button>
+      </div>
+      <!-- Items -->
+      <div class="relative w-full overflow-hidden">
+        <div class="relative float-left w-full" data-te-carousel-item data-te-carousel-active>
+          <img src="{{ url_for('static', filename='images/img1.webp') }}" class="block w-full" alt="Optimized Crop Growth" />
+          <div class="carousel-caption">
+            <h5 class="text-2xl font-bold">🌱 Right Crop, Right Soil</h5>
+            <p>Choosing crops that suit your soil type improves yield by up to 30%.</p>
+          </div>
+        </div>
+        <div class="relative float-left w-full hidden" data-te-carousel-item>
+          <img src="{{ url_for('static', filename='images/img2.webp') }}" class="block w-full" alt="Crop Failure" />
+          <div class="carousel-caption">
+            <h5 class="text-2xl font-bold">⚠ Risks of Wrong Crop Choices</h5>
+            <p>Planting crops unsuitable for your soil can lead to financial losses.</p>
+          </div>
+        </div>
+        <div class="relative float-left w-full hidden" data-te-carousel-item>
+<!--          <img src="" class="block w-full" alt="Advanced Techniques" />-->
+          <img src="{{ url_for('static', filename='images/img3.png') }}" class="block w-full" alt="Advanced Techniques">
+          <div class="carousel-caption">
+            <h5 class="text-2xl font-bold">🌾 Embrace Modern Techniques</h5>
+            <p>Utilize technology for precision agriculture and higher productivity.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Controls -->
+      <button class="absolute bottom-0 left-0 top-0 flex w-[15%] items-center justify-center text-white opacity-50" data-te-target="#carouselDarkVariant" data-te-slide="prev">
+        <span class="inline-block h-8 w-8">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6">
+            <path d="M15.75 19.5L8.25 12l7.5-7.5"></path>
+          </svg>
+        </span>
+      </button>
+      <button class="absolute bottom-0 right-0 top-0 flex w-[15%] items-center justify-center text-white opacity-50" data-te-target="#carouselDarkVariant" data-te-slide="next">
+        <span class="inline-block h-8 w-8">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6">
+            <path d="M8.25 4.5l7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+
+<!-- Main Content -->
+<div class="main-content bg-green-900 bg-opacity-50 min-h-screen flex items-center">
+  <div class="container mx-auto px-6 lg:px-20">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      <!-- Left Section -->
+      <div class="text-white text-center lg:text-left">
+        <h1 class="font-bold leading-tight">
+          Discover the Power of Smart Farming
+        </h1>
+        <p class="text-6xl font-bold mt-4">22</p>
+        <p class="py-3">EXPERTLY RECOMMENDED CROPS</p>
+        <a class="button mt-6 px-6 py-3 bg-white text-green-900 font-bold rounded hover:bg-gray-200" href="{{ url_for('login') }}">
+          Get Started
+        </a>
+      </div>
+      <!-- Right Section -->
+      <div class="bg-green-800 bg-opacity-75 p-6 rounded-lg">
+        <h2 class="text-white text-xl font-bold text-center">Crop Categories in Our System</h2>
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <div class="text-center">
+            <img src="{{ url_for('static', filename='images/pulse1.jpg') }}" alt="Grains" class="mx-auto rounded-full">
+            <p class="text-white mt-2">Grains</p>
+          </div>
+          <div class="text-center">
+            <img src="{{ url_for('static', filename='images/pulse2.jpg') }}" alt="Legumes" class="mx-auto rounded-full">
+            <p class="text-white mt-2">Cash Crops</p>
+          </div>
+          <div class="text-center">
+            <img src="{{ url_for('static', filename='images/pulse3.jpeg') }}" alt="Pulses" class="mx-auto rounded-full">
+            <p class="text-white mt-2">Pulses</p>
+          </div>
+          <div class="text-center">
+            <img src="{{ url_for('static', filename='images/fruits.jpg') }}" alt="Fruits" class="mx-auto rounded-full">
+            <p class="text-white mt-2">Fruits</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white p-6 mt-auto">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Column 1 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">AgroInsight</h2>
+        <p>Empowering farmers and agricultural enthusiasts with actionable insights. Bridging traditional methods with modern technology for a sustainable future.</p>
+      </div>
+      <!-- Column 2 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">Contact Us</h2>
+        <ul>
+          <li>📍 AgroInsight HQ, Bengaluru, India</li>
+          <li>📞 +91 97172 31599</li>
+          <li>📧 Siyona@agroinsight.com</li>
+          <li>📧 Vaibhav@agroinsight.com</li>
+          <li>🌐 <a href="#" class="text-yellow-300 hover:underline">www.agroinsight.com</a></li>
+        </ul>
+      </div>
+      <!-- Column 3 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">Quick Links</h2>
+        <ul>
+          <li><a href="home.html" class="hover:underline">Home</a></li>
+          <li><a href="index.html" class="hover:underline">Get Recommendation</a></li>
+          <li><a href="about.html" class="hover:underline">About Us</a></li>
+          <li><a href="./history.html" class="text-white hover:text-yellow-300">Recommendation History</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white mt-4 pt-4 text-center">
+      <p>&copy; 2025 AgroInsight. All Rights Reserved.</p>
+      <p>Website developed by <strong>AgroInsight Team</strong>.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+</body>
+</html>

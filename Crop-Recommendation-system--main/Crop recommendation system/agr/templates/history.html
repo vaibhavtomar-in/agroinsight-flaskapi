@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Recommendation History</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<nav class="bg-green-800 p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="{{ url_for('home') }}" class="text-white text-2xl font-bold">Agro-Insight</a>
+    <ul class="hidden md:flex space-x-4">
+      <li><a href="{{ url_for('home') }}" class="text-white hover:text-yellow-300">Home</a></li>
+      <li><a href="{{ url_for('about') }}" class="text-white hover:text-yellow-300">About</a></li>
+      <li><a href="{{ url_for('index') }}" class="text-white hover:text-yellow-300">Get Recommendation</a></li>
+      <li><a href="{{ url_for('history') }}" class="text-white hover:text-yellow-300">Recommendation History</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+  <!-- User Info Section -->
+  <section class="bg-white shadow-md rounded-lg mx-4 lg:mx-auto my-6 p-6 flex items-center space-x-6">
+    <img src="{{ url_for('static', filename='images/client.jpg') }}" alt="User Photo">
+    <div>
+      <h2 class="text-2xl font-bold text-green-800">Sneha Singh</h2>
+      <p><strong>Phone:</strong> +91 98183 18099</p>
+      <p><strong>Email:</strong> sneha@gmail.com</p>
+      <p><strong>Address:</strong> 123 Green Street, Koramangala, Bangalore</p>
+    </div>
+  </section>
+
+  <!-- History Table -->
+  <section class="bg-white shadow-md rounded-lg mx-4 lg:mx-auto my-6 p-6 overflow-x-auto">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="bg-green-800 text-white">
+          <th class="px-4 py-2">Date</th>
+          <th class="px-4 py-2">N</th>
+          <th class="px-4 py-2">P</th>
+          <th class="px-4 py-2">K</th>
+          <th class="px-4 py-2">Temperature (°C)</th>
+          <th class="px-4 py-2">Humidity (%)</th>
+          <th class="px-4 py-2">pH</th>
+          <th class="px-4 py-2">Rainfall (mm)</th>
+          <th class="px-4 py-2">Recommended Crop</th>
+        </tr>
+      </thead>
+      <tbody id="history-body" class="divide-y divide-gray-200">
+        <!-- History rows will be dynamically injected here -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-green-800 text-white p-6 mt-auto">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Column 1 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">AgroInsight</h2>
+        <p>Empowering farmers and agricultural enthusiasts with actionable insights. Bridging traditional methods with modern technology for a sustainable future.</p>
+      </div>
+      <!-- Column 2 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">Contact Us</h2>
+        <ul>
+          <li>📍 AgroInsight HQ, Bengaluru, India</li>
+          <li>📞 +91 97172 31599</li>
+          <li>📧 Siyona@agroinsight.com</li>
+          <li>📧 Vaibhav@agroinsight.com</li>
+          <li>🌐 <a href="#" class="text-yellow-300 hover:underline">www.agroinsight.com</a></li>
+        </ul>
+      </div>
+      <!-- Column 3 -->
+      <div>
+        <h2 class="text-lg font-bold mb-2">Quick Links</h2>
+        <ul>
+          <li><a href="index.html" class="hover:underline">Home</a></li>
+          <li><a href="form.html" class="hover:underline">Get Recommendation</a></li>
+          <li><a href="about.html" class="hover:underline">About Us</a></li>
+          <li><a href="./history.html" class="text-white hover:text-yellow-300">Recommendation History</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white mt-4 pt-4 text-center">
+      <p>&copy; 2025 AgroInsight. All Rights Reserved.</p>
+      <p>Website developed by <strong>AgroInsight Team</strong>.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Populate the table
+    const recommendationHistory = [
+      { date: '2025-01-05', N: 90, P: 40, K: 60, temperature: 25.3, humidity: 75, pH: 6.5, rainfall: 150, crop: 'Rice' },
+      { date: '2025-01-06', N: 80, P: 50, K: 70, temperature: 26.5, humidity: 65, pH: 6.8, rainfall: 120, crop: 'Wheat' },
+    ];
+    const tbody = document.getElementById('history-body');
+    recommendationHistory.forEach(record => {
+      tbody.innerHTML += `
+        <tr>
+          <td class="px-4 py-2">${record.date}</td>
+          <td class="px-4 py-2">${record.N}</td>
+          <td class="px-4 py-2">${record.P}</td>
+          <td class="px-4 py-2">${record.K}</td>
+          <td class="px-4 py-2">${record.temperature.toFixed(1)}</td>
+          <td class="px-4 py-2">${record.humidity}</td>
+          <td class="px-4 py-2">${record.pH.toFixed(1)}</td>
+          <td class="px-4 py-2">${record.rainfall}</td>
+          <td class="px-4 py-2">${record.crop}</td>
+        </tr>`;
+    });
+  </script>
+</body>
+</html>

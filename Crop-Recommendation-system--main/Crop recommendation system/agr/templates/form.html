@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Recommendation System</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<!-- Navbar -->
+<nav class="bg-green-800 p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <a href="{{ url_for('home') }}" class="text-white text-2xl font-bold">Agro-Insight</a>
+    <ul class="hidden md:flex space-x-4">
+      <li><a href="{{ url_for('home') }}" class="text-white hover:text-yellow-300">Home</a></li>
+      <li><a href="{{ url_for('about') }}" class="text-white hover:text-yellow-300">About</a></li>
+      <li><a href="{{ url_for('index') }}" class="text-white hover:text-yellow-300">Get Recommendation</a></li>
+      <li><a href="{{ url_for('history') }}" class="text-white hover:text-yellow-300">Recommendation History</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<!--&lt;!&ndash; Navbar &ndash;&gt;-->
+<!--<nav class="bg-green-800 p-4 shadow-md">-->
+<!--  <div class="container mx-auto flex justify-between items-center">-->
+<!--    <a href="#" class="text-white text-2xl font-bold">Crop Recommendation</a>-->
+<!--    <ul class="hidden md:flex space-x-4">-->
+<!--      <li><a href="home.html" class="text-white hover:text-yellow-300">Home</a></li>-->
+<!--      <li><a href="" class="text-white hover:text-yellow-300">Contact</a></li>-->
+<!--      <li><a href="spd/about.html" class="text-white hover:text-yellow-300">About</a></li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</nav>-->
+
+<!-- Form Section -->
+<div class="container mx-auto py-12">
+  <h1 class="text-4xl font-bold text-center text-green-900">Crop Recommendation System 🌱</h1>
+  <p class="text-center text-gray-600 mt-4">Enter the details below to find the best crop for your field.</p>
+
+  <form action="/predict" method="POST" class="bg-white shadow-md rounded-lg p-8 mt-8 max-w-4xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <label for="Nitrogen" class="block text-gray-700 font-bold mb-2">Nitrogen</label>
+        <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+      </div>
+      <div>
+        <label for="Phosporus" class="block text-gray-700 font-bold mb-2">Phosphorus</label>
+        <input type="number" id="Phosporus" name="Phosporus" placeholder="Enter Phosphorus" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+      </div>
+      <div>
+        <label for="Potassium" class="block text-gray-700 font-bold mb-2">Potassium</label>
+        <input type="number" id="Potassium" name="Potassium" placeholder="Enter Potassium" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <div>
+        <label for="Temperature" class="block text-gray-700 font-bold mb-2">Temperature (°C)</label>
+        <input type="number" step="0.01" id="Temperature" name="Temperature" placeholder="Enter Temperature" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+      </div>
+      <div>
+        <label for="Humidity" class="block text-gray-700 font-bold mb-2">Humidity (%)</label>
+        <input type="number" step="0.01" id="Humidity" name="Humidity" placeholder="Enter Humidity" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+      </div>
+      <div>
+  <label for="pH" class="block text-gray-700 font-bold mb-2">pH</label>
+  <input type="number" id="Ph" name="Ph" step="0.01" min="1" max="7" placeholder="Enter pH (1-7)" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+  <small class="text-red-500 hidden" id="pH-error">pH value must be between 1 and 7.</small>
+</div>
+
+    </div>
+
+    <div class="mt-6">
+      <label for="Rainfall" class="block text-gray-700 font-bold mb-2">Rainfall (mm)</label>
+      <input type="number" step="0.01" id="Rainfall" name="Rainfall" placeholder="Enter Rainfall" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" required>
+    </div>
+
+    <div class="text-center mt-8">
+      <button type="submit" class="bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500">
+        Get Recommendation
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- Result Section -->
+{% if result %}
+<div class="container mx-auto py-12">
+  <h2 class="text-3xl font-bold text-center text-green-800">Recommended Crop</h2>
+  <div class="bg-white shadow-md rounded-lg p-8 mt-8 max-w-4xl mx-auto flex flex-col md:flex-row items-center">
+    <img src="{{ url_for('static', filename='img.jpg') }}" alt="Crop Image" class="w-40 h-40 rounded-lg object-cover mb-6 md:mb-0 md:mr-6">
+    <div>
+      <p class="text-gray-700 text-lg"><span class="font-bold text-green-800">Crop Name:</span> {{ result }}</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+</body>
+</html>
